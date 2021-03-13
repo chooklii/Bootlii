@@ -7,7 +7,8 @@ from util.boost_pad_tracker import BoostPadTracker
 from util.drive import steer_toward_target
 from util.sequence import Sequence, ControlStep
 from util.vec import Vec3
-from util.determin_location import determinGrid
+from util.determin_location import LocationDetection
+from util.rotation import rotation
 
 class MyBot(BaseAgent):
 
@@ -15,6 +16,7 @@ class MyBot(BaseAgent):
         super().__init__(name, team, index)
         self.active_sequence: Sequence = None
         self.boost_pad_tracker = BoostPadTracker()
+        self.location_grid = LocationDetection()
 
     def initialize_agent(self):
         # Set up information about the boost pads now that the game is active and the info is available
@@ -25,9 +27,12 @@ class MyBot(BaseAgent):
         This function will be called by the framework many times per second. This is where you can
         see the motion of the ball, etc. and return controls to drive your car.
         """
-
         # Keep our boost pad info updated with which pads are currently active
         self.boost_pad_tracker.update_boost_status(packet)
+        # Keep our grid system updates with all players current position
+        self.location_grid.update_positions(packet, self.team, self.index)
+
+
 
         # This is good to keep at the beginning of get_output. It will allow you to continue
         # any sequences that you may have started during a previous call to get_output.
@@ -36,16 +41,15 @@ class MyBot(BaseAgent):
             if controls is not None:
                 return controls
 
+        # if their is no current movement init controlls
+        controls = SimpleControllerState()
+
         # Gather some information about our car and the ball
         my_car = packet.game_cars[self.index]
         car_location = Vec3(my_car.physics.location)
-        car_velocity = Vec3(my_car.physics.velocity)
-        ball_location = Vec3(packet.game_ball.physics.location)
 
-        print(determinGrid(
-            packet.game_cars[0].physics.location.x, 
-            packet.game_cars[0].physics.location.y))
-        controls = SimpleControllerState()
+        ball_location = Vec3(packet.game_ball.physics.location)
+        controls = rotation(controls, self.location_grid, my_car, ball_location, self.team)
 
         return controls
 
