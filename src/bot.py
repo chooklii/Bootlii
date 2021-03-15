@@ -47,10 +47,8 @@ class MyBot(BaseAgent):
         # Gather some information about our car and the ball
         my_car = packet.game_cars[self.index]
         car_location = Vec3(my_car.physics.location)
-
         ball_location = Vec3(packet.game_ball.physics.location)
         controls = rotation(controls, self.location_grid, my_car, ball_location, self.team)
-
         return controls
 
     def begin_front_flip(self, packet):
