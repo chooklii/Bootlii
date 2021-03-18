@@ -1,7 +1,6 @@
 import math
 
 from rlbot.utils.structures.game_data_struct import PlayerInfo
-
 from util.orientation import Orientation, relative_location
 from util.vec import Vec3
 

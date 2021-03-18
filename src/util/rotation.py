@@ -1,11 +1,11 @@
 from rlbot.utils.structures.game_data_struct import GameTickPacket
 from rlbot.agents.base_agent import SimpleControllerState
-from util.determin_location import LocationDetection
+from util.grid.Grid import Grid
 from util.drive import steer_toward_target
 from util.vec import Vec3
-from util.config.grid import gridTeamPositions, gridTeamCoordinates, gridPositionLogic
+from util.grid.config import gridTeamPositions, gridTeamCoordinates, gridPositionLogic
 
-def rotation(controls: SimpleControllerState, location_grid: LocationDetection, my_location, ball_location: Vec3, my_team: int) -> SimpleControllerState:
+def rotation(controls: SimpleControllerState, location_grid: Grid, my_location, ball_location: Vec3, my_team: int) -> SimpleControllerState:
         # if ball is in front of our goal drive towards it no mather what.
         if(location_grid.ball == location_grid.ownposition):
             controls.steer = steer_toward_target(my_location, ball_location)
@@ -27,7 +27,6 @@ def rotation(controls: SimpleControllerState, location_grid: LocationDetection, 
         # Wenn wir, muss ich in die Box?
 
         # Wenn wir, muss ich raustorieren?
-
 
         # Wenn nicht wir, muss ich auf den Ball?
 
