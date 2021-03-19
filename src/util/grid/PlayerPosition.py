@@ -25,5 +25,6 @@ class PlayerPosition:
     def set_grid(self, grid: int):
         self.grid = grid
 
+    # check if player is in given kickoff position
     def equals_kickoff(self, kickoff_position: KickOffPosition):
         return self.x == kickoff_position.get_x() and self.y == kickoff_position.get_y()

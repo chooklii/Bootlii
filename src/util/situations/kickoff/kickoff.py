@@ -10,15 +10,15 @@ from util.situations.kickoff.diagonal import diagonal_kickoff
 from util.situations.kickoff.KickOffOptions import KickOffOptions
 
 def kickoff(baseAgent: BaseAgent, packet: GameTickPacket, grid: Grid, team_index: int) -> Sequence:
-    kickoff_options = KickOffOptions(team_index)
+    kickoff_options: KickOffOptions = KickOffOptions(team_index)
     if grid.ownposition.equals_kickoff(kickoff_options.diagonal_left) or grid.ownposition.equals_kickoff(kickoff_options.diagonal_right):
         return diagonal_kickoff(baseAgent)
     elif grid.ownposition.equals_kickoff(kickoff_options.center_left):
-        return center_left_kickoff()
+        return center_left_kickoff(baseAgent, grid, kickoff_options)
     elif grid.ownposition.equals_kickoff(kickoff_options.center_right):
-        return center_right_kickoff( )
+        return center_right_kickoff(baseAgent, grid, kickoff_options)
     elif grid.ownposition.equals_kickoff(kickoff_options.center_back):
-        return center_back_kickoff()
+        return center_back_kickoff(baseAgent, grid, kickoff_options)
 
 
     baseAgent.send_quick_chat(team_only=False, quick_chat=QuickChatSelection.Information_IGotIt)
