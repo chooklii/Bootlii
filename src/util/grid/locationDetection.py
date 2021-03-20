@@ -15,7 +15,7 @@ def update_positions(packet: GameTickPacket, own_team: int, own_index: int) -> G
         player_position = PlayerPosition(position_x, position_y, grid_position)
         if(list_index == own_index):
             grid.update_own_position(player_position)
-        if(packet.game_cars[list_index].team != own_team):
+        elif(packet.game_cars[list_index].team != own_team):
             grid.add_opponent(player_position)
         else:
             grid.add_team(player_position)

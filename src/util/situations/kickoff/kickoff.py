@@ -12,16 +12,10 @@ from util.situations.kickoff.KickOffOptions import KickOffOptions
 def kickoff(baseAgent: BaseAgent, packet: GameTickPacket, grid: Grid, team_index: int) -> Sequence:
     kickoff_options: KickOffOptions = KickOffOptions(team_index)
     if grid.ownposition.equals_kickoff(kickoff_options.diagonal_left) or grid.ownposition.equals_kickoff(kickoff_options.diagonal_right):
-        return diagonal_kickoff(baseAgent)
+        return diagonal_kickoff(baseAgent, grid, kickoff_options)
     elif grid.ownposition.equals_kickoff(kickoff_options.center_left):
         return center_left_kickoff(baseAgent, grid, kickoff_options)
     elif grid.ownposition.equals_kickoff(kickoff_options.center_right):
         return center_right_kickoff(baseAgent, grid, kickoff_options)
     elif grid.ownposition.equals_kickoff(kickoff_options.center_back):
         return center_back_kickoff(baseAgent, grid, kickoff_options)
-
-
-    baseAgent.send_quick_chat(team_only=False, quick_chat=QuickChatSelection.Information_IGotIt)
-    return Sequence([
-        ControlStep(duration=0.05, controls=SimpleControllerState(throttle=1.0))
-    ])

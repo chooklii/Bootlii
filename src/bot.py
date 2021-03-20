@@ -23,7 +23,7 @@ class MyBot(BaseAgent):
         self.active_sequence: Sequence = None
         self.boost_pad_tracker = BoostPadTracker()
         self.location_grid = Grid()
-        self.ball_has_been_played = False
+        self.kickoff_has_been_done = False
 
     def initialize_agent(self):
         # Set up information about the boost pads now that the game is active and the info is available
@@ -49,9 +49,10 @@ class MyBot(BaseAgent):
             controls = SimpleControllerState()
         # if it is kickoff pause - reset ball_has_been_played
         if packet.game_info.is_kickoff_pause:
-            self.ball_has_been_played = False
+            self.kickoff_has_been_done = False
         # is this is False we are in a kickoff situation
-        if not self.ball_has_been_played:
+        if not self.kickoff_has_been_done:
+            self.kickoff_has_been_done = True
             self.active_sequence = kickoff(self, packet, self.location_grid, self.team)
             return self.active_sequence.tick(packet)
 

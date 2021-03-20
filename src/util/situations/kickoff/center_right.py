@@ -26,15 +26,19 @@ def center_right_kickoff(baseAgent: BaseAgent, grid: Grid, kickoff_options: Kick
 
 def center_right_go_for_boost():
     return Sequence([
-        ControlStep(duration=0.05, controls=SimpleControllerState(throttle=1.0))
+        ControlStep(duration=0.4, controls=SimpleControllerState(throttle=1.0, steer=1)),
+        ControlStep(duration=0.4, controls=SimpleControllerState(throttle=1.0)),
+        ControlStep(duration=0.4, controls=SimpleControllerState(throttle=1.0, jump=True, pitch=-1))
     ])
 
 def center_right_go_for_ball():
     return Sequence([
-        ControlStep(duration=0.05, controls=SimpleControllerState(throttle=1.0))
+        ControlStep(duration=0.65, controls=SimpleControllerState(throttle=1.0, boost=True, steer=-0.01)),
+        ControlStep(duration= 0.05, controls=SimpleControllerState(throttle= 1.0, boost=True, jump= True)),
+        ControlStep(duration= 0.05, controls=SimpleControllerState(throttle= 1.0, boost=True, jump= True)),
     ])
 
 def center_right_cheat_up():
     return Sequence([
-        ControlStep(duration=0.05, controls=SimpleControllerState(throttle=1.0))
+        ControlStep(duration=0.2, controls=SimpleControllerState(throttle=1.0))
     ])
