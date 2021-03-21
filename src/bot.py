@@ -54,7 +54,6 @@ class MyBot(BaseAgent):
         if not self.kickoff_has_been_done:
             self.kickoff_has_been_done = True
             self.active_sequence = kickoff(self, packet, self.location_grid, self.team)
-            return self.active_sequence.tick(packet)
 
 
         #controls = rotation(controls, self.location_grid, my_car, ball_location, self.team)

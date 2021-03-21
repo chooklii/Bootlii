@@ -26,9 +26,10 @@ def diagonal_left_go_for_ball() -> Sequence:
 
 def diagonal_right_go_for_ball() -> Sequence:
     return Sequence([
-        ControlStep(duration=0.7, controls=SimpleControllerState(throttle=1.0, boost=True)),
-        ControlStep(duration= 0.1, controls=SimpleControllerState(throttle= 1.0, jump= True, pitch= 1.0)),
-        ControlStep(duration= 0.1, controls=SimpleControllerState(throttle= 1.0, jump= False, pitch= 1.0)),
+        ControlStep(duration=0.65, controls=SimpleControllerState(throttle=1.0, boost=True, steer=0.03)),
+        ControlStep(duration= 0.05, controls=SimpleControllerState(throttle= 1.0, boost=True, jump= True)),
+        ControlStep(duration= 0.05, controls=SimpleControllerState(throttle= 1.0, boost=True, jump= True)),
+        ControlStep(duration= 0.1, controls=SimpleControllerState(throttle= 1.0, boost=True, jump= False, pitch= 1.0)),
         ControlStep(duration= 0.05, controls=SimpleControllerState(throttle= 1.0, jump= True, pitch= -1.0, roll= 0.3)),
-        ControlStep(duration= 0.2, controls=SimpleControllerState(throttle= 1.0, jump= False, pitch= -1.0, roll= -1.0, yaw= -1.0))
+        ControlStep(duration= 0.2, controls=SimpleControllerState(throttle= 1.0, boost=True, jump= False, pitch= -1.0, roll= 1.0, yaw= 1.0))
     ])

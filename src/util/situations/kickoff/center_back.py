@@ -20,14 +20,19 @@ def center_back_kickoff(baseAgent: BaseAgent, grid: Grid, kickoff_options: KickO
 
 def center_back_go_for_boost():
     return Sequence([
-        ControlStep(duration=0.65, controls=SimpleControllerState(throttle=1.0, steer=-1)),
-        ControlStep(duration=0.4, controls=SimpleControllerState(throttle=1.0, boost=True)),
-        ControlStep(duration=0.4, controls=SimpleControllerState(throttle=1.0, boost=True, jump=True, pitch=-1))
+        ControlStep(duration=0.7, controls=SimpleControllerState(throttle=1.0, steer=-1)),
+        ControlStep(duration= 0.05, controls=SimpleControllerState(throttle= 1.0, boost=True)),
+        ControlStep(duration= 0.05, controls=SimpleControllerState(throttle= 1.0, boost=True, jump=True)),
+        ControlStep(duration= 0.05, controls=SimpleControllerState(boost=True, jump=False, pitch= 1.0)),
+        ControlStep(duration= 0.05, controls=SimpleControllerState(jump= True, pitch= -1.0))
     ])
 
 def center_back_go_for_ball():
     return Sequence([
-        ControlStep(duration=0.4, controls=SimpleControllerState(throttle=1.0, boost=True)),
-        ControlStep(duration= 0.05, controls=SimpleControllerState(throttle=1.0, boost=True, jump=True)),
-        ControlStep(duration= 0.05, controls=SimpleControllerState(throttle=1.0, boost=True, jump=True)),
+        ControlStep(duration=0.65, controls=SimpleControllerState(throttle=1.0, boost=True)),
+        ControlStep(duration= 0.05, controls=SimpleControllerState(throttle= 1.0, boost=True, jump=True)),
+        ControlStep(duration= 0.05, controls=SimpleControllerState(throttle= 1.0, boost=True, jump=True)),
+        ControlStep(duration= 0.1, controls=SimpleControllerState(throttle= 1.0, boost=True, jump=False, pitch= 1.0)),
+        ControlStep(duration= 0.05, controls=SimpleControllerState(throttle= 1.0, jump= True, pitch= -1.0)),
+        ControlStep(duration= 0.6, controls=SimpleControllerState(throttle= 1.0, boost=True, jump= False, pitch= -1.0,yaw= -1.0))
     ])
