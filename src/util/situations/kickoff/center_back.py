@@ -18,7 +18,7 @@ def center_back_kickoff(baseAgent: BaseAgent, grid: Grid, kickoff_options: KickO
         # if we are alone on the field, go for ball
         return center_back_go_for_ball()
 
-def center_back_go_for_boost():
+def center_back_go_for_boost() -> Sequence:
     return Sequence([
         ControlStep(duration=0.7, controls=SimpleControllerState(throttle=1.0, steer=-1)),
         ControlStep(duration= 0.05, controls=SimpleControllerState(throttle= 1.0, boost=True)),
@@ -27,7 +27,7 @@ def center_back_go_for_boost():
         ControlStep(duration= 0.05, controls=SimpleControllerState(jump= True, pitch= -1.0))
     ])
 
-def center_back_go_for_ball():
+def center_back_go_for_ball() -> Sequence:
     return Sequence([
         ControlStep(duration=0.65, controls=SimpleControllerState(throttle=1.0, boost=True)),
         ControlStep(duration= 0.05, controls=SimpleControllerState(throttle= 1.0, boost=True, jump=True)),

@@ -24,10 +24,14 @@ class MyBot(BaseAgent):
         self.boost_pad_tracker = BoostPadTracker()
         self.location_grid = Grid()
         self.kickoff_has_been_done = False
+        self.kickoff_mode = False
 
     def initialize_agent(self):
         # Set up information about the boost pads now that the game is active and the info is available
         self.boost_pad_tracker.initialize_boosts(self.get_field_info())
+
+    def reset_to_start(self):
+        self.kickoff_mode = False
 
     def get_output(self, packet: GameTickPacket) -> SimpleControllerState:
         # Keep our boost pad info updated with which pads are currently active
@@ -37,26 +41,30 @@ class MyBot(BaseAgent):
         my_car = packet.game_cars[self.index]
         ball_location = Vec3(packet.game_ball.physics.location)
 
+        # if their is an active sequence of play given, return this´
+        if not packet.game_info.is_round_active:
+            self.reset_to_start()
+            return SimpleControllerState()
 
-
-
-        # if their is an active sequence of play given, return this
-        if self.active_sequence is not None and not self.active_sequence.done:
+        if self.active_sequence is not None and not self.active_sequence.done and packet.game_info.is_round_active:
             controls = self.active_sequence.tick(packet)
             if controls is not None:
                 return controls
-        else:
-            controls = SimpleControllerState()
+
+
+        controls = SimpleControllerState()
         # if it is kickoff pause - reset ball_has_been_played
         if packet.game_info.is_kickoff_pause:
             self.kickoff_has_been_done = False
         # is this is False we are in a kickoff situation
-        if not self.kickoff_has_been_done:
+        if not self.kickoff_has_been_done and not self.kickoff_mode:
             self.kickoff_has_been_done = True
+            self.kickoff_mode = True
             self.active_sequence = kickoff(self, packet, self.location_grid, self.team)
+            return self.active_sequence.tick(packet)
 
 
-        #controls = rotation(controls, self.location_grid, my_car, ball_location, self.team)
+            #controls = rotation(controls, self.location_grid, my_car, ball_location, self.team)
 
 
         return controls

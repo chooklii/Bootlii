@@ -15,7 +15,7 @@ def center_left_kickoff(baseAgent: BaseAgent, grid: Grid, kickoff_options: KickO
         return center_left_go_for_ball()
 
 
-def center_left_go_for_ball():
+def center_left_go_for_ball() -> Sequence:
     return Sequence([
         ControlStep(duration=0.65, controls=SimpleControllerState(throttle=1.0, boost=True, steer=0.05)),
         ControlStep(duration= 0.05, controls=SimpleControllerState(throttle= 1.0, boost=True, jump=True)),
@@ -25,7 +25,7 @@ def center_left_go_for_ball():
         ControlStep(duration= 0.2, controls=SimpleControllerState(throttle= 1.0, boost=True, jump= False, pitch= -1.0,yaw= -1.0))
     ])
 
-def center_left_cheat_up():
+def center_left_cheat_up() -> Sequence:
     return Sequence([
         ControlStep(duration=2, controls=SimpleControllerState(throttle=1.0))
     ])
