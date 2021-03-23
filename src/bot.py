@@ -60,6 +60,7 @@ class MyBot(BaseAgent):
             if controls is not None:
                 return controls
         else:
+            # if their is no kickoff and no active sequence we are in open play
             controls = SimpleControllerState()
 
 

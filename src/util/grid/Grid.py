@@ -1,19 +1,19 @@
 from util.grid.PlayerPosition import PlayerPosition
 from util.situations.kickoff.KickoffPosition import KickOffPosition
-
+from util.grid.Ball import Ball
 class Grid:
 
     def __init__(
         self,
-        ball: int = 0,
-        ownposition: PlayerPosition = PlayerPosition(0, 0, 0),
-        team = [],
-        opponent = []
+        ball: Ball,
+        ownposition: PlayerPosition,
+        team: list(PlayerPosition),
+        opponent: list(PlayerPosition)
         ):
-        self.ball: int = ball
-        self.ownposition: PlayerPosition = ownposition
-        self.team: list(PlayerPosition) = team
-        self.opponent: list(PlayerPosition) = opponent
+        self.ball = ball
+        self.ownposition = ownposition
+        self.team = team
+        self.opponent = opponent
 
     def add_team(self, position: PlayerPosition):
         self.team.append(position)
@@ -24,8 +24,8 @@ class Grid:
     def update_own_position(self, position: PlayerPosition):
         self.ownposition = position
 
-    def update_ball_position(self, position: int):
-        self.ball = position
+    def update_ball_position(self, ball: Ball):
+        self.ball = ball
 
     def reset_team(self):
         self.team = []
