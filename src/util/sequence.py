@@ -40,7 +40,7 @@ class ControlStep(Step):
 
 
 class Sequence:
-    def __init__(self, steps: List[Step]):
+    def __init__(self, steps: List[Step] = []):
         self.steps = steps
         self.index = 0
         self.done = False
@@ -61,3 +61,8 @@ class Sequence:
         # If we reach here, we ran out of steps to attempt.
         self.done = True
         return None
+
+    def set_empty(self):
+        self.done = True
+        self.steps = []
+        self.index = 0

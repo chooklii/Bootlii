@@ -19,3 +19,6 @@ def kickoff(baseAgent: BaseAgent, packet: GameTickPacket, grid: Grid, team_index
         return center_right_kickoff(baseAgent, grid, kickoff_options)
     elif grid.ownposition.equals_kickoff(kickoff_options.center_back):
         return center_back_kickoff(baseAgent, grid, kickoff_options)
+    else:
+        # if we cannot detect any valid kickoff position lets wait until we are able to
+        baseAgent.kickoff_mode = False
